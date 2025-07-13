@@ -28,7 +28,8 @@ class User extends Authenticatable
         'is_admin' => 'boolean',
     ];
 
-    public function tasks()
+    // Add these relationships
+    public function assignedTasks()
     {
         return $this->hasMany(Task::class, 'user_id');
     }
@@ -42,4 +43,9 @@ class User extends Authenticatable
     {
         return $this->is_admin;
     }
+
+    public function tasks()
+{
+    return $this->hasMany(Task::class, 'user_id');
+}
 }
