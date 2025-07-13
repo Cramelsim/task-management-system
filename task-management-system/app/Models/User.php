@@ -2,33 +2,44 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Task extends Model
+class User extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $fillable = [
-        'title',
-        'description',
-        'status',
-        'deadline',
-        'user_id',
-        'created_by',
+        'name',
+        'email',
+        'password',
+        'is_admin',
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
     ];
 
     protected $casts = [
-        'deadline' => 'date',
+        'email_verified_at' => 'datetime',
+        'is_admin' => 'boolean',
     ];
 
-    public function user()
+    public function tasks()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(Task::class, 'user_id');
     }
 
-    public function creator()
+    public function createdTasks()
     {
-        return $this->belongsTo(User::class, 'created_by');
+        return $this->hasMany(Task::class, 'created_by');
+    }
+
+    public function isAdmin()
+    {
+        return $this->is_admin;
     }
 }
