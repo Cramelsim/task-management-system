@@ -3,114 +3,125 @@
 ![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-A full-featured task management application built with Laravel that allows users to create, assign, and track tasks with email notifications.
+A complete task management solution with user roles, email notifications, queue processing, and a beautiful Tailwind UI.
 
-## Features
+## ✨ Features
 
-- ✅ User authentication (Admin/Regular users)
-- 📝 Create and assign tasks with deadlines
-- 📊 Track task status (Pending/In Progress/Completed)
-- 🔔 Email notifications for assigned tasks
-- 🎨 Responsive UI with Tailwind CSS
-- 📱 Mobile-friendly interface
-- 📅 Deadline reminders
+- 👤 Admin and User roles  
+- ✅ Task assignment with email notifications  
+- 🗓️ Deadline tracking  
+- 📊 Status updates (Pending / In Progress / Completed)  
+- 📧 Email via Mailtrap or Gmail SMTP  
+- 🚀 Queue worker integration  
+- 🎨 Responsive Tailwind CSS interface  
 
-## Prerequisites
+## 🔧 Installation
 
-- PHP 8.1+
-- Composer 2.0+
-- Node.js 16+
-- SQLite (or MySQL/PostgreSQL)
-- SMTP credentials (Mailtrap/Gmail)
-
-## Installation
-
-1. Clone the repository:
+1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/task-management-system.git
+   git clone https://github.com/Cramelsim/task-management-system.git
    cd task-management-system
-Install dependencies:
+   ```
 
-bash
-composer install
-npm install
-Configure environment:
+2. **Install backend & frontend dependencies**
+   ```bash
+   composer install
+   npm install
+   ```
 
-bash
-cp .env.example .env
-php artisan key:generate
-Set up database:
+3. **Set up your environment**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-bash
-touch database/database.sqlite
-php artisan migrate --seed
-Configure email (in .env):
+4. **Configure the database**
+   ```bash
+   touch database/database.sqlite
+   php artisan migrate --seed
+   ```
 
-env
-MAIL_MAILER=smtp
-MAIL_HOST=smtp.mailtrap.io  # or smtp.gmail.com
-MAIL_PORT=2525              # or 587 for Gmail
-MAIL_USERNAME=your_username
-MAIL_PASSWORD=your_password
+5. **Configure email settings** in `.env`:
+   ```env
+   MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=simwa.melody@student.moringaschool.com
+MAIL_PASSWORD=vxionnyzwqftivqr
 MAIL_ENCRYPTION=tls
-Build assets:
+MAIL_FROM_ADDRESS=simwa.melody@student.moringaschool.com
 
-bash
-npm run build
-Start development server:
+   ```
 
-bash
+6. **Build frontend assets**
+   ```bash
+   npm run build
+   ```
+
+## ▶️ Running the Application
+
+Start the development server:
+```bash
 php artisan serve
-Usage
-Admin Account
-Email: admin@example.com
+```
 
-Password: password
+Start the queue worker in a new terminal:
+```bash
+php artisan queue:work
+```
 
-Regular User
-Email: user@example.com
+## 👤 Default Credentials
 
-Password: password
+### Admin:
+- Email: `admin@example.com`  
+- Password: `password`
 
-Screenshots
-https://screenshots/dashboard.png
-https://screenshots/tasks.png
-https://screenshots/create-task.png
+### Regular User:
+- Email: `simwamelody@gmail.com`  
+- Password: `simwamelody`
 
-Email Setup
-For Gmail SMTP:
+## 📧 Gmail Email Setup
 
-Enable 2-Step Verification in your Google Account
+To use Gmail SMTP:
+1. Enable 2-Step Verification in your Google Account.
+2. Generate an [App Password](https://myaccount.google.com/apppasswords).
+3. Use the 16-digit app password in your `.env`.
 
-Generate an App Password (select "Mail" + "Other")
+## 🚀 Deployment Tips
 
-Use the 16-digit password in .env
-
-Deployment
-For production deployment:
-
-bash
+For production:
+```bash
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
-php artisan optimize
-Contributing
-Pull requests are welcome. For major changes, please open an issue first.
+```
 
-License
-MIT
+Set up **Supervisor** for queue workers:
+```ini
+[program:laravel-worker]
+command=php /path/to/your/project/artisan queue:work --sleep=3 --tries=3
+autostart=true
+autorestart=true
+user=melody
+numprocs=1
+redirect_stderr=true
+stdout_logfile=/path/to/your/project/storage/logs/worker.log
+```
 
-text
+## 🛠️ Troubleshooting
 
-### Key Sections Included:
-1. **Badges** - Shows tech stack at a glance
-2. **Features** - Highlights core functionality
-3. **Installation** - Step-by-step setup guide
-4. **Default Credentials** - For quick testing
-5. **Email Configuration** - Special instructions for Gmail
-6. **Deployment Notes** - Production optimization
+**Emails not arriving?**
+- Make sure `php artisan queue:work` is running.
+- Check logs:
+  ```bash
+  tail -f storage/logs/laravel.log
+  ```
 
-### Recommended Additions:
-- Add actual screenshots in a `/screenshots` folder
-- Include environment-specific notes if needed
-- Add API documentation if your system has endpoints
+**Database issues?**
+```bash
+php artisan migrate:fresh --seed
+```
+
+## 📄 License
+
+This project is open-source and available under the [MIT License](LICENSE).
