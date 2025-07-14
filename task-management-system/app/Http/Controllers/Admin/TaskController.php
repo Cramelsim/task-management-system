@@ -11,13 +11,17 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class TaskController extends Controller
 {
-    use AuthorizesRequests; // Add this trait to use $this->authorize()
+    use AuthorizesRequests;
 
+    // Show tasks assigned by logged-in admin
     public function index()
     {
-        return view('tasks.index', [
-            'tasks' => auth()->user()->tasks()->latest()->paginate(10)
-        ]);
+        $tasks = Task::where('created_by', auth()->id())
+                     ->with('user') // eager load assigned user
+                     ->latest()
+                     ->paginate(10);
+
+        return view('admin.tasks.index', compact('tasks'));
     }
 
     public function create()
@@ -78,7 +82,7 @@ class TaskController extends Controller
     public function updateStatus(Request $request, Task $task)
     {
         $this->authorize('update', $task);
-                
+
         $validated = $request->validate([
             'status' => 'required|in:Pending,In Progress,Completed'
         ]);

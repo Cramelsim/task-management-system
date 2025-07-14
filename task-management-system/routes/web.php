@@ -36,7 +36,17 @@ Route::middleware('auth')->group(function () {
     //Route::patch('/tasks/{task}/status', [TaskController::class, 'updateStatus'])->name('tasks.update-status');
     
     Route::patch('/tasks/{task}/status', [\App\Http\Controllers\Admin\TaskController::class, 'updateStatus'])->name('tasks.updateStatus');
+    
 });
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/assigned-tasks', [AdminController::class, 'assignedTasks'])->name('admin.assigned-tasks');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::resource('tasks', TaskController::class)->except(['create', 'store', 'edit', 'update', 'destroy']);
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');

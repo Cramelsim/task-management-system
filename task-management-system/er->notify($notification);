@@ -1,0 +1,28 @@
+[90m= [39m[34;4mApp\Notifications\TaskAssigned[39;24m {#6236
+    +[1mid[22m: [36mnull[39m,
+    +[1mlocale[22m: [36mnull[39m,
+    +[1mtask[22m: [34;4mApp\Models\Task[39;24m {#6216
+      [34mid[39m: [35m1[39m,
+      [34mtitle[39m: "[32mInstall antivirus[39m",
+      [34mdescription[39m: "[32mBitdefender[39m",
+      [34mstatus[39m: "[32mPending[39m",
+      [34mpriority[39m: "[32mmedium[39m",
+      [34mdue_date[39m: [36mnull[39m,
+      [34muser_id[39m: [35m3[39m,
+      [34massigned_by[39m: [36mnull[39m,
+      [34mcreated_at[39m: "[32m2025-07-13 18:28:33[39m",
+      [34mupdated_at[39m: "[32m2025-07-14 16:06:04[39m",
+      [34mdeadline[39m: "[32m2025-07-18 00:00:00[39m",
+      [34mcreated_by[39m: [35m1[39m,
+    },
+    +[1mconnection[22m: [36mnull[39m,
+    +[1mqueue[22m: [36mnull[39m,
+    +[1mdelay[22m: [36mnull[39m,
+    +[1mafterCommit[22m: [36mnull[39m,
+    +[1mmiddleware[22m: [],
+    +[1mchained[22m: [],
+    +[1mchainConnection[22m: [36mnull[39m,
+    +[1mchainQueue[22m: [36mnull[39m,
+    +[1mchainCatchCallbacks[22m: [36mnull[39m,
+  }
+

@@ -1,0 +1,26 @@
+[90m= [39m[34;4mApp\Models\Task[39;24m {#6238
+    [34mid[39m: [35m1[39m,
+    [34mtitle[39m: "[32mInstall antivirus[39m",
+    [34mdescription[39m: "[32mBitdefender[39m",
+    [34mstatus[39m: "[32mPending[39m",
+    [34mpriority[39m: "[32mmedium[39m",
+    [34mdue_date[39m: [36mnull[39m,
+    [34muser_id[39m: [35m3[39m,
+    [34massigned_by[39m: [36mnull[39m,
+    [34mcreated_at[39m: "[32m2025-07-13 18:28:33[39m",
+    [34mupdated_at[39m: "[32m2025-07-14 16:06:04[39m",
+    [34mdeadline[39m: "[32m2025-07-18 00:00:00[39m",
+    [34mcreated_by[39m: [35m1[39m,
+    [34muser[39m: [34;4mApp\Models\User[39;24m {#6248
+      [34mid[39m: [35m3[39m,
+      [34mname[39m: "[32mMelody[39m",
+      [34memail[39m: "[32mmelody@gmail.com[39m",
+      [34memail_verified_at[39m: [36mnull[39m,
+      #[33mpassword[39m: "[32m$2y$12$F3dTGeyXauQJZxif33Mpf.SVOl2KS4WEfO.d4a/WvUrd0YRvyAQky[39m",
+      #[33mremember_token[39m: "[32m0rXx3u7tXdm5Px8PjK6BNKeZCkDe5BRmdIcGepAMpagBB1E0dfGdHwH44G7i[39m",
+      [34mcreated_at[39m: "[32m2025-07-13 18:12:25[39m",
+      [34mupdated_at[39m: "[32m2025-07-13 18:12:25[39m",
+      [34mis_admin[39m: [35m0[39m,
+    },
+  }
+

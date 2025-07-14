@@ -39,7 +39,22 @@
                                     <div class="flex-1">
                                         <h3 class="font-medium">{{ $task->title }}</h3>
                                         <p class="text-sm text-gray-500 mt-1">Due: {{ $task->deadline->format('M d, Y') }}</p>
-                                        <a href="{{ route('tasks.show', $task) }}" class="text-blue-500 text-sm mt-2 inline-block hover:text-blue-700">View Details</a>
+                                        
+                                        <!-- Display task details directly -->
+                                        <div class="mt-2 text-sm text-gray-600">
+                                            <p><strong>Description:</strong> {{ $task->description }}</p>
+                                            <p class="mt-1"><strong>Status:</strong> 
+                                                <span class="px-2 py-1 rounded text-xs
+                                                    @if($task->status === 'Pending') bg-yellow-100 text-yellow-800
+                                                    @elseif($task->status === 'In Progress') bg-blue-100 text-blue-800
+                                                    @else bg-green-100 text-green-800 @endif">
+                                                    {{ $task->status }}
+                                                </span>
+                                            <!-- </p>
+                                            @if($task->priority)
+                                            <p class="mt-1"><strong>Priority:</strong> {{ $task->priority }}</p>
+                                            @endif -->
+                                        </div>
                                     </div>
                                     <div class="ml-4">
                                         <!-- Status dropdown for updating -->
