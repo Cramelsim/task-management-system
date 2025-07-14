@@ -10,7 +10,9 @@ class TaskController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        
     }
+
 
     public function index()
     {
@@ -34,15 +36,15 @@ class TaskController extends Controller
     // }
 
     public function updateStatus(Request $request, Task $task)
-    {
-        $this->authorize('update', $task);
+{
+    $this->authorize('update', $task);
     
-        $validated = $request->validate([
+    $validated = $request->validate([
         'status' => 'required|in:Pending,In Progress,Completed'
-        ]);
+    ]);
 
-        $task->update($validated);
+    $task->update(['status' => $validated['status']]);
 
-        return back()->with('success', 'Task status updated successfully!');
-    }
-    }
+    return back()->with('success', 'Task status updated!');
+}
+}

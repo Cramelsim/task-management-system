@@ -7,13 +7,17 @@ use App\Models\Task;
 use App\Models\User;
 use App\Notifications\TaskAssigned;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class TaskController extends Controller
 {
+    use AuthorizesRequests; // Add this trait to use $this->authorize()
+
     public function index()
     {
-        $tasks = Task::with(['user', 'creator'])->latest()->paginate(10);
-        return view('admin.tasks.index', compact('tasks'));
+        return view('tasks.index', [
+            'tasks' => auth()->user()->tasks()->latest()->paginate(10)
+        ]);
     }
 
     public function create()
@@ -45,6 +49,12 @@ class TaskController extends Controller
         return redirect()->route('admin.tasks.index')->with('success', 'Task assigned successfully!');
     }
 
+    public function show(Task $task)
+    {
+        $this->authorize('view', $task);
+        return view('tasks.show', compact('task'));
+    }
+
     public function edit(Task $task)
     {
         $users = User::where('is_admin', false)->get();
@@ -56,14 +66,26 @@ class TaskController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'deadline' => 'required|date',
-            'user_id' => 'required|exists:users,id',
-            'status' => 'required|in:Pending,In Progress,Completed'
+            'deadline' => 'required|date|after:today',
+            'user_id' => 'required|exists:users,id'
         ]);
 
         $task->update($validated);
 
         return redirect()->route('admin.tasks.index')->with('success', 'Task updated successfully!');
+    }
+
+    public function updateStatus(Request $request, Task $task)
+    {
+        $this->authorize('update', $task);
+                
+        $validated = $request->validate([
+            'status' => 'required|in:Pending,In Progress,Completed'
+        ]);
+
+        $task->update(['status' => $validated['status']]);
+
+        return back()->with('success', 'Task status updated successfully!');
     }
 
     public function destroy(Task $task)

@@ -25,17 +25,18 @@
                         @foreach($tasks as $task)
                         <div class="border rounded-lg p-4">
                             <div class="flex justify-between items-start">
-                                <div>
+                                <div class="flex-1">
                                     <h3 class="font-medium">{{ $task->title }}</h3>
                                     <p class="text-sm text-gray-500 mt-1">Due: {{ $task->deadline->format('M d, Y') }}</p>
+                                    
                                     @if($task->description)
-                                    <div class="mt-2 p-3 bg-gray-50 rounded">
-                                        <p class="text-gray-700">{{ $task->description }}</p>
+                                    <div class="mt-3 p-3 bg-gray-50 rounded">
+                                        <p class="text-gray-700 whitespace-pre-line">{{ $task->description }}</p>
                                     </div>
                                     @endif
                                 </div>
                                 
-                                <form action="{{ route('tasks.update-status', $task) }}" method="POST" class="flex items-center gap-2">
+                                <form action="{{ route('tasks.update-status', $task) }}" method="POST" class="ml-4">
                                     @csrf
                                     @method('PATCH')
                                     <select name="status" onchange="this.form.submit()" 
