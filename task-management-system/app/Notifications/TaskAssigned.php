@@ -4,16 +4,18 @@ namespace App\Notifications;
 
 use App\Models\Task;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class TaskAssigned extends Notification implements ShouldQueue
+class TaskAssigned extends Notification
 {
     use Queueable;
 
-    public function __construct(public Task $task)
+    protected $task;
+
+    public function __construct(Task $task)
     {
+        $this->task = $task;
     }
 
     public function via(object $notifiable): array
