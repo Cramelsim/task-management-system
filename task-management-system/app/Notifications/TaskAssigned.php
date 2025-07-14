@@ -26,12 +26,13 @@ class TaskAssigned extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
+        ->from('simwa.melody@student.moringaschool.com', 'Task Management System')
             ->subject('New Task Assigned: ' . $this->task->title)
             ->line('You have been assigned a new task.')
             ->line('Task: ' . $this->task->title)
             ->line('Description: ' . $this->task->description)
             ->line('Deadline: ' . $this->task->deadline->format('M j, Y'))
-            ->action('View Task', route('tasks.show', $this->task))
+            // ->action('View Task', route('tasks.show', $this->task))
             ->line('Thank you for using our application!');
     }
 }
